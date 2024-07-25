@@ -724,3 +724,9 @@ intersectionOp[@name=LogicOp] { "&" }
 @external propSource jsHighlight from "./highlight"
 
 @detectDelim
+
+@top JSTemplate { (Text | CustomInterpolation)* }
+
+CustomInterpolation { "{{" expression? "}}" }
+
+@external tokens tokenizeText from "./tokens" { Text }

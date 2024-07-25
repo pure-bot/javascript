@@ -4,7 +4,7 @@
 import {ExternalTokenizer, ContextTracker} from "@lezer/lr"
 import {insertSemi, noSemi, incdec, incdecPrefix, questionDot,
         spaces, newline, BlockComment, LineComment,
-        JSXStartTag, Dialect_jsx} from "./parser.terms.js"
+        JSXStartTag, Dialect_jsx, Text} from "./parser.terms.js"
 
 const space = [9, 10, 11, 12, 13, 32, 133, 160, 5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200,
                8201, 8202, 8232, 8233, 8239, 8287, 12288]
@@ -80,4 +80,14 @@ export const jsx = new ExternalTokenizer((input, stack) => {
     }
   }
   input.acceptToken(JSXStartTag, -back)
+})
+
+export const tokenizeText = new ExternalTokenizer((input, stack) => {
+  console.log(String.fromCharCode(input.next))
+  if (
+    (String.fromCharCode(input.next) === 'a')
+  ) {
+    input.advance();
+    input.acceptToken(Text);
+  }
 })
